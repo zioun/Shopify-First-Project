@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_B7Jt93": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_hHQLmQ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Oops",
+            "heading_size": "h1"
+          }
+        },
+        "text_FPbc7e": {
+          "type": "text",
+          "settings": {
+            "text": "<p>404 Page not found<\/p>"
+          }
+        },
+        "button_LDBRNa": {
+          "type": "button",
+          "settings": {
+            "button_label": "Return to Home",
+            "button_link": "\/",
+            "button_style_secondary": false,
+            "button_label_2": "Return to Collection",
+            "button_link_2": "shopify:\/\/collections\/all",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_hHQLmQ",
+        "text_FPbc7e",
+        "button_LDBRNa"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_B7Jt93"
+  ]
+}
