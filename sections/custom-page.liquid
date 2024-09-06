@@ -1,6 +1,31 @@
 {% schema %}
     {
         "name": "Custom Image With Text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Set Your Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "header",
+                "content": "Section Padding"
+            },
+            {
+                "type": "range",
+                "id": "top_padding",
+                "label": "Top Padding",
+                "min": 0,
+                "max": 0,
+                "step": 4,
+                "unit": "px",
+                "default": 36
+            }
+        ]
         
     }
 {%endschema%}
