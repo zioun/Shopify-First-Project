@@ -1,10 +1,55 @@
+{% style %}
+    .custom_image_with_text{
+        width: 1200px;
+        margin: auto;
+    }
+    .custom_image_with_text__container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .custom_image_left img{
+        width: 100%;
+        height: 500px;
+        border-radius: 5px;
+    }
+    .custom_image_right{
+        
+    }
+    .custom_image_with_text-{{ section.id }}{
+        padding-top: {{ section.settings.top_padding }}px;
+        padding-bottom: {{ section.settings.bottom_padding }}px;
+    }
+    
+    
+    
+
+{% endstyle %}
+
+<div class="custom_image_with_text custom_image_with_text-{{ section.id }}">
+    <div class="custom_image_with_text__container">
+        <div class="custom_image_left">
+            {%if section.settings.image != blank%}
+                {{section.settings.image |  image_url: width:3200 |  image_tag }}
+            {% else %}
+                {{"detailed-apparel-1" |  placeholder_svg_tag}}
+            {% endif %}
+        </div>
+        <div class="custom_image_right">
+            {% for block in section.blocks %}
+                <h2>{{block.settings.heading}}</h2>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
 {% schema %}
     {
         "name": "Custom Image With Text",
         "settings": [
             {
                 "type": "header",
-                "content": "Set Your Image"
+                "content": "Set Your Images"
             },
             {
                 "type": "image_picker",
@@ -20,10 +65,44 @@
                 "id": "top_padding",
                 "label": "Top Padding",
                 "min": 0,
-                "max": 0,
+                "max": 100,
                 "step": 4,
                 "unit": "px",
                 "default": 36
+            },
+            {
+                "type": "range",
+                "id": "bottom_padding",
+                "label": "Bottom Padding",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "default": 36
+            }
+        ],
+        "blocks": [
+            {
+                "type": "heading_block",
+                "name": "Heading",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Title",
+                        "default": "Your Title"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Custom image with text",
+                "blocks": [
+                    {
+                        "type": "heading_block"
+                    }
+                ]
             }
         ]
         
