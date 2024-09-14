@@ -6,6 +6,7 @@
     .custom_image_with_text__container{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        gap: 50px;
     }
     .custom_image_left img{
         width: 100%;
@@ -19,6 +20,18 @@
         padding-top: {{ section.settings.top_padding }}px;
         padding-bottom: {{ section.settings.bottom_padding }}px;
     }
+    .section_btn{
+        margin-top: 50px;
+    }
+    .custom_btn{
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: white;
+        background: black;
+        text-decoration: none;
+    }
     
     
     
@@ -29,14 +42,27 @@
     <div class="custom_image_with_text__container">
         <div class="custom_image_left">
             {%if section.settings.image != blank%}
-                {{section.settings.image |  image_url: width:3200 |  image_tag }}
+                {{section.settings.image |  image_url: width:3200 |  image_tag }}     
             {% else %}
                 {{"detailed-apparel-1" |  placeholder_svg_tag}}
             {% endif %}
         </div>
         <div class="custom_image_right">
             {% for block in section.blocks %}
-                <h2>{{block.settings.heading}}</h2>
+                {% case block.type %}
+                    {% when "heading_block" %}
+                        <div {{ block.shopify_attributes }}>
+                            <h1>{{block.settings.heading}}</h1>
+                        </div>
+                    {% when "paragraph_block" %}
+                        <div {{ block.shopify_attributes }}>
+                            <p>{{block.settings.paragraph}}</p>
+                        </div>
+                    {% when "button_block" %}    
+                        <div class="section_btn" {{ block.shopify_attributes }}>
+                            <a class="custom_btn" href="{{ block.settings.btn_url }}">{{ block.settings.btn_label }}</a>
+                        </div>
+                {% endcase %}
             {% endfor %}
         </div>
     </div>
@@ -85,12 +111,43 @@
             {
                 "type": "heading_block",
                 "name": "Heading",
+                "limit": 1,
                 "settings": [
                     {
                         "type": "text",
                         "id": "heading",
                         "label": "Title",
-                        "default": "Your Title"
+                        "default": "<h1>Your Title</h1>"
+                    }
+                ]
+            },
+            {
+                "type": "paragraph_block",
+                "name": "Paragraph",
+                "limit": 2,
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "paragraph",
+                        "label": "Paragraph",
+                        "default": "<p>Your Paragraph</p>"
+                    }
+                ]
+            },
+            {
+                "type": "button_block",
+                "name": "Button",
+                "settings": [
+                    {
+                        "type": "url",
+                        "id": "btn_url",
+                        "label": "Button Link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button label",
+                        "default": "Purchase Now"
                     }
                 ]
             }
@@ -101,6 +158,12 @@
                 "blocks": [
                     {
                         "type": "heading_block"
+                    },
+                    {
+                        "type": "paragraph_block"
+                    },
+                    {
+                        "type": "button_block"
                     }
                 ]
             }
