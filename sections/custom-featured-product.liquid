@@ -1,8 +1,54 @@
+{% style %}
+    .custom_featured_product{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+    .custom_featured_product img{
+        width: 100%;
+        height: auto;
+    }
+    .image_container{
+        position: relative;
+        overflow: hidden;
+    }
+    .image_container .featured_image{
+        display: block;
+    }
+    .image_container .second_image{
+        display: none;
+    }
+    .image_container:hover .featured_image{
+        display: none;
+    }
+    .image_container:hover .second_image{
+        display: block;
+    }
+{% endstyle %}
+
 {% assign product = section.settings.product_data %} 
 <div class="page-width">
-    <h1> {{ product.title }}</h1>
-    <p>{{ product.description |  truncatewords: 30 }}</p>
-    <p>{{ product.price | money }}</p>
+    <div class="custom_featured_product">
+        <div class="image_container">
+            {% if product.featured_image != blank %}
+                {{  product.featured_image |  image_url: width:800 |  image_tag : class:"featured_image" }}
+                {{ product.images[1] |  image_url: width:800 |  image_tag : class:"second_image" }}
+            {% else %}
+                {{ 'product-apparel-1' |  placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+        </div>
+        <div>
+            {% if product.title != blank %}
+                <a href="{{ product.url }}"><h1>{{ product.title }}</h1></a>
+            {% endif %}
+            {% if product.description != blank %}
+                <p>{{ product.description |  truncatewords: 30 }}</p>
+            {% endif %}
+            {% if product.price != blank %}
+                <p>{{ product.price | money }}</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
 {% schema %}
