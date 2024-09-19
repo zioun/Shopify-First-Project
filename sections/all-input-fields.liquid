@@ -1,0 +1,74 @@
+{%  style  %} 
+    .section_space{
+        border: {{ section.settings.number_field }}px solid black;
+    }
+    .radio_section{
+        text-align: {{ section.settings.radio_field }};
+    }
+{% endstyle %}
+
+<div class="page-width">
+    {% if section.settings.checkbox_field %}
+        <h1>Checkbox </h1>
+    {% endif %}
+    <div class="section_space">
+        {% if section.settings.number_field %}
+            <h1>Number is {{ section.settings.number_field }}</h1>
+        {% endif %}
+    </div>
+    <div class="radio_section">
+        <h1>Radio Field</h1>
+        <p>Radio {{section.settings.radio_field}}</p>
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "All Input Fields",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "checkbox_field",
+            "label": "Checkbox",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Number"
+        },
+        {
+            "type": "number",
+            "id": "number_field",
+            "label": "Number",
+            "default": 10
+        },
+        {
+            "type": "radio",
+            "id": "radio_field",
+            "label": "Radio",
+            "default": "center",
+            "options": [
+                {
+                    "label": "Left",
+                    "value": "left"
+                },
+                {
+                    "label": "Center",
+                    "value": "center"
+                },
+                {
+                    "label": "Right",
+                    "value": "right"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "All Input Fields"
+        }
+    ]
+}
+{% endschema %}
