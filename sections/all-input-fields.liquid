@@ -5,6 +5,33 @@
     .radio_section{
         text-align: {{ section.settings.radio_field }};
     }
+    .font_size h1{
+        font-size: {{ section.settings.font_size }}px;
+    }
+    .align_item{
+        border: 3px solid black;
+        display: flex;
+        justify-content: {{ section.settings.vertical_alignment }};
+    }
+    .color_text h1{
+        color: {{ section.settings.color_select }};
+    }
+    .article_container{
+        width: 50%;
+        border: 2px solid black;
+    }
+    .article_container img{
+        width: 100%;
+    }
+    .blog_container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid black;
+    }
+    .single_blog{
+        border: 1px solid black;
+
+    }
 {% endstyle %}
 
 <div class="page-width">
@@ -19,6 +46,55 @@
     <div class="radio_section">
         <h1>Radio Field</h1>
         <p>Radio {{section.settings.radio_field}}</p>
+    </div>
+    <div class="font_size">
+        {% if section.settings.font_size != blank %}
+            <h1>Font Size</h1>
+        {% endif %}
+    </div>
+    <div class="align_item">
+        {% if section.settings.vertical_alignment != blank %}
+            <h1>Align Item</h1>
+        {% endif %}
+    </div>
+    <div class="color_text">
+        {% if section.settings.color_select != blank %}
+            <h1>Color</h1>
+        {% endif %}
+    </div>
+    <div>
+        {% if section.settings.text_add != blank %}
+            <h1>{{ section.settings.text_add }}</h1>
+        {% endif %}
+    </div>
+    <div>
+        {% if section.settings.textarea_add != blank %}
+            <p>{{ section.settings.textarea_add }}</p>
+        {% endif %}
+    </div>
+    <div class="article_container">
+        {% assign article = section.settings.article_field %}
+        {{ article.image | image_url: width: 800 | image_tag }}
+        <br>
+        <small>Author: {{ article.author }}</small> <small>Publish at: {{ article.created_at | date: "%b %d, %Y"}}</small>
+        <p>
+            {% for tag in article.tags %}
+                <span>{{ tag }}</span>
+            {% endfor %}
+        </p>
+        <a href="{{ article.url }}"><h1>{{ article.title }}</h1></a>
+        <p>{{ article.content }}</p>
+        <p>{{ article.excerpt }}</p>
+    </div>
+    <div class="blog_container">
+        {%  assign blogs  = section.settings.blog_field %}
+            {% for blog in blogs.articles %}
+                <div class="single_blog">
+                    {{ blog.image |  image_url: width: 800 |  image_tag }}
+                    <a href="{{ blog.url }}"><h1>{{blog.title}}</h1></a>
+                    <p> {{blog.content}} </p>
+                </div>
+            {% endfor %}
     </div>
 </div>
 
@@ -45,6 +121,10 @@
             "default": 10
         },
         {
+            "type": "header",
+            "content": "Radio"
+        },
+        {
             "type": "radio",
             "id": "radio_field",
             "label": "Radio",
@@ -63,6 +143,116 @@
                     "value": "right"
                 }
             ]
+        },
+        {
+            "type": "header",
+            "content": "Ranges"
+        },
+        {
+            "type": "range",
+            "id": "font_size",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Font Size",
+            "default": 14
+        },
+        {
+            "type": "header",
+            "content": "Select Align"
+        },
+        {
+            "type": "select",
+            "id": "vertical_alignment",
+            "label": "Vertical Alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Select Color"
+        },
+        {
+            "type": "select",
+            "id": "color_select",
+            "label": "Color",
+            "options": [
+                {
+                    "value": "red",
+                    "label": "Red"
+                },
+                {
+                    "value": "green",
+                    "label": "Green"
+                },
+                {
+                    "value": "white",
+                    "label": "White"
+                },
+                {
+                    "value": "black",
+                    "label": "Black"
+                },
+                {
+                    "value": "gray",
+                    "label": "Gray"
+                },
+                {
+                    "value": "orange",
+                    "label": "Orange"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Text"
+        },
+        {
+            "type": "text",
+            "id": "text_add",
+            "label": "Text",
+            "default": "Quick Links"
+        },
+        {
+            "type": "header",
+            "content": "Text"
+        },
+        {
+            "type": "textarea",
+            "id": "textarea_add",
+            "label": "TextArea",
+            "default": "This is textarea"
+        },
+        {
+            "type": "header",
+            "content": "Article"
+        },
+        {
+            "type": "article",
+            "id": "article_field",
+            "label": "Article"
+        },
+        {
+            "type": "header",
+            "content": "Blog"
+        },
+        {
+            "type": "blog",
+            "id": "blog_field",
+            "label": "Blog"
         }
     ],
     "presets": [
