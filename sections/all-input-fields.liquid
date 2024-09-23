@@ -29,10 +29,15 @@
         border: 1px solid black;
     }
     .single_blog{
-        border: 1px solid black;
+        border: 1px solid red;
+        width: 100%;
+    }
+    .single_blog img{
+        width: 100%;
     }
 
 {% endstyle %}
+
 
 
 <div class="page-width">
@@ -89,13 +94,13 @@
     </div>
     <div class="blog_container">
         {%  assign blogs  = section.settings.blog_field %}
-            {% for blog in blogs.articles %}
-                <div class="single_blog">
-                    {{ blog.image |  image_url: width: 800 |  image_tag }}
-                    <a href="{{ blog.url }}"><h1>{{blog.title}}</h1></a>
-                    <p> {{blog.content}} </p>
-                </div>
-            {% endfor %}
+        {% for blog in blogs.articles %}
+            <div class="single_blog">
+                {{ blog.image |  image_url: width: 800 |  image_tag }}
+                <a href="{{ blog.url }}"><h1>{{blog.title}}</h1></a>
+                <p> {{blog.content}} </p>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
