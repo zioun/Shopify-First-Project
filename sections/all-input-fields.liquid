@@ -49,6 +49,9 @@
         object-fit: cover;
         
     }
+    .heading_font h1{
+        font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }}
+    }
 
 {% endstyle %}
 
@@ -161,6 +164,57 @@
                 {% endfor %}
             </div>
         {% endfor %}
+    </div>
+    <div class="section_color" style="background-image: {{ section.settings.bg_gradient }};">
+        <h1 class="text_color" style="color: {{ section.settings.text_color }}">Lorem ipsum dolor sit amet.</h1>
+    </div>
+    <div class="color_scheme color-{{ section.settings.color_scheme }} gradient">
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae numquam eos ipsum quasi necessitatibus voluptas.</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus, molestias iure aliquid neque eligendi atque voluptas delectus velit quidem sit dolorem saepe. Nostrum qui vitae, hic dolorem obcaecati molestiae nobis quaerat necessitatibus quam voluptatibus sunt, iusto accusamus illum saepe quae nemo id sequi sint vero fuga ipsum laudantium quasi. Excepturi?</p>
+        <button>Learn More</button>
+    </div>
+    <div class="heading_font">
+        <h1>Hello Bangladesh</h1>
+    </div>
+    <div>
+        <h1>{{section.settings.video_embed}}</h1>
+    </div>
+    <div>
+        <h3>Menu List</h3>
+        {%  assign menu = linklists[ section.settings.menu_links ] %}
+        <ul>
+            {% comment %} first {% endcomment %}
+            {% for link in menu.links %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+                <li>
+                    {% if link.links.size > 0 %}
+                    <ul>
+                        {% comment %} second {% endcomment %}
+                        {% for submenu in link.links %}
+                            <li>
+                                <a href="{{ submenu.url }}">{{ submenu.title }}</a>
+                            </li>
+                            <li>
+                                <ul>
+                                    {% if submenu.links.size > 0 %}
+                                        {% comment %} third {% endcomment %}
+                                        {% for submenu in submenu.links %}
+                                            <li>
+                                                <a href="{{ submenu.url }}">{{ submenu.title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
 
@@ -339,7 +393,76 @@
             "type": "collection_list",
             "id": "collection_list_field",
             "label": "Collection list"
+        },
+        {
+            "type": "header",
+            "content": "Color"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text color",
+            "default": "#00ff00"
+        },
+        {
+            "type": "header",
+            "content": "Background"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background color",
+            "default": "#000000"
+        },
+        {
+            "type": "header",
+            "content": "Gradient"
+        },
+        {
+            "type": "color_background",
+            "id": "bg_gradient",
+            "label": "Background",
+            "default": "linear-gradient(#ffffff, #000000)"
+        },
+        {
+            "type": "header",
+            "content": "Color_scheme"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "default": "scheme_1",
+            "label": "Color Scheme"
+        },
+        {
+            "type": "header",
+            "content": "Font Picker"
+        },
+        {
+            "type": "font_picker",
+            "id": "heading_font",
+            "label": "Heading Font",
+            "default": "helvetica_n4"
+        },
+        {
+            "type": "header",
+            "content": "html"
+        },
+        {
+            "type": "html",
+            "id": "video_embed",
+            "label": "Video embed"
+        },
+        {
+            "type": "header",
+            "content": "link_list"
+        },
+        {
+            "type": "link_list",
+            "id": "menu_links",
+            "label": "Menu"
         }
+
 
     ],
     "presets": [
