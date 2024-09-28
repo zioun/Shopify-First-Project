@@ -52,6 +52,9 @@
     .heading_font h1{
         font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }}
     }
+    .product_list{
+        border: 1px solid black;
+    }
 
 {% endstyle %}
 
@@ -216,7 +219,39 @@
             {% endfor %}
         </ul>
     </div>
-
+    <div>
+        <h2>{{ section.settings.liquid_field }}</h2>
+    </div>
+    <div>
+        Page Title : <h2>{{ section.settings.page_field.title }}</h2>
+        Page content: <h2>{{ section.settings.page_field.content }}</h2>
+    </div>
+    <h1>product</h1>
+    <div>
+        {% assign product = section.settings.product_field %}
+        {{ product.featured_image |  image_url: width: 800 |  image_tag }}
+        <h3>
+            <a href="{{ product.url }}">{{ product.title }}</a>
+        </h3>
+        {% comment %} <p>{{ product.price | money }}</p> {% endcomment %}
+        {% render 'price', product: product %}
+    </div>
+    <h1>Product List</h1>
+    <div>
+        {% assign product_list = section.settings.product_list_field %}
+        {% for product in product_list %}
+            <div class="product_list">
+                <div>
+                    {{ product.featured_image |  image_url: width: 800 |  image_tag  }}
+                </div>
+                <h3>
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <p>{{ product.price }}</p>
+                {% render 'price', product: product %}
+            </div>
+        {% endfor %}
+    </div>
 
 </div>
 
@@ -461,6 +496,44 @@
             "type": "link_list",
             "id": "menu_links",
             "label": "Menu"
+        },
+        {
+            "type": "header",
+            "content": "liquid"
+        },
+        {
+            "type": "liquid",
+            "id": "liquid_field",
+            "label": "Battery Message",
+            "default": "{% if product.tags contains 'battery' %}This product can only be shipped by ground.{% else %}This product can be shipped by ground or air.{% endif %}"
+        },
+        {
+            "type": "header",
+            "content": "page"
+        },
+        {
+            "type": "page",
+            "id": "page_field",
+            "label": "Page"
+        },
+        {
+            "type": "header",
+            "content": "product"
+        },
+        {
+            "type": "product",
+            "id": "product_field",
+            "label": "Product" 
+        },
+        {
+            "type": "header",
+            "content": "product list"
+        },
+        {
+            "type": "product_list",
+            "id": "product_list_field",
+            "label": "Products",
+            "limit": 12
         }
 
     ],
