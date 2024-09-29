@@ -55,6 +55,12 @@
     .product_list{
         border: 1px solid black;
     }
+    .alignment{
+        text-align: {{ section.settings.alignment }};
+    }
+    .video_container video{
+        width: 300px;
+    }
 
 {% endstyle %}
 
@@ -251,6 +257,10 @@
                 {% render 'price', product: product %}
             </div>
         {% endfor %}
+    </div>
+    <h1 class="alignment">Alignment</h1>
+    <div class="video_container">
+        {{ section.settings.video_field | video_tag: image_size: "1100px", autoplay: false, controls: true, muted: false }}
     </div>
 
 </div>
@@ -534,6 +544,25 @@
             "id": "product_list_field",
             "label": "Products",
             "limit": 12
+        },
+        {
+            "type": "header",
+            "content": "Text Alignment"
+        },
+        {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Text Alignment",
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "Video"
+        },
+        {
+            "type": "video",
+            "id": "video_field",
+            "label": "A Shopify-hosted video"
         }
 
     ],
