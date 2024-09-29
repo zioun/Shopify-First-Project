@@ -236,7 +236,7 @@
         {% comment %} <p>{{ product.price | money }}</p> {% endcomment %}
         {% render 'price', product: product %}
     </div>
-    <h1>Product List</h1>
+    <h1>Product Lists</h1>
     <div>
         {% assign product_list = section.settings.product_list_field %}
         {% for product in product_list %}
@@ -252,7 +252,6 @@
             </div>
         {% endfor %}
     </div>
-
 </div>
 
 
