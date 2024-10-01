@@ -1,3 +1,4 @@
+{% comment %} pass: shptka_48ee336f5e16e1ce376570bae70b6b1f {% endcomment %}
 {%  style  %} 
     .section_space{
         border: {{ section.settings.number_field }}px solid black;
@@ -8,6 +9,7 @@
     .font_size h1{
         font-size: {{ section.settings.font_size }}px;
     }
+    
     .align_item{
         border: 3px solid black;
         display: flex;
@@ -54,6 +56,12 @@
     }
     .product_list{
         border: 1px solid black;
+    }
+    .alignment{
+        text-align: {{ section.settings.alignment }};
+    }
+    .video_container video{
+        width: 300px;
     }
 
 {% endstyle %}
@@ -252,6 +260,7 @@
             </div>
         {% endfor %}
     </div>
+
 </div>
 
 
@@ -533,6 +542,25 @@
             "id": "product_list_field",
             "label": "Products",
             "limit": 12
+        },
+        {
+            "type": "header",
+            "content": "Text Alignment"
+        },
+        {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Text Alignment",
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "Video"
+        },
+        {
+            "type": "video",
+            "id": "video_field",
+            "label": "A Shopify-hosted video"
         }
 
     ],
