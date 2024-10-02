@@ -1,3 +1,4 @@
+{% comment %} pass: shptka_48ee336f5e16e1ce376570bae70b6b1f {% endcomment %}
 {%  style  %} 
     .section_space{
         border: {{ section.settings.number_field }}px solid black;
@@ -8,6 +9,7 @@
     .font_size h1{
         font-size: {{ section.settings.font_size }}px;
     }
+    
     .align_item{
         border: 3px solid black;
         display: flex;
@@ -242,7 +244,7 @@
         {% comment %} <p>{{ product.price | money }}</p> {% endcomment %}
         {% render 'price', product: product %}
     </div>
-    <h1>Product List</h1>
+    <h1>Product Lists</h1>
     <div>
         {% assign product_list = section.settings.product_list_field %}
         {% for product in product_list %}
@@ -257,10 +259,6 @@
                 {% render 'price', product: product %}
             </div>
         {% endfor %}
-    </div>
-    <h1 class="alignment">Alignment</h1>
-    <div class="video_container">
-        {{ section.settings.video_field | video_tag: image_size: "1100px", autoplay: false, controls: true, muted: false }}
     </div>
 
 </div>
